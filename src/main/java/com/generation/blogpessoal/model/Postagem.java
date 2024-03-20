@@ -37,6 +37,18 @@ public class Postagem {
 	@ManyToOne
 	@JsonIgnoreProperties("postagem") // fazer com que o tema não chame a postagem e fique num ciclo infinito de tema:postagem e postagem:tema
 	private Tema tema;
+	
+	@ManyToOne
+	@JsonIgnoreProperties("postagem")
+	private Usuario usuario;
+
+	public Usuario getUsuario() {
+		return usuario;
+	}
+
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
+	}
 
 	public Long getId() {
 		return id;
