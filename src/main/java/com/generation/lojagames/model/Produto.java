@@ -12,6 +12,7 @@ import jakarta.persistence.Table;
 import jakarta.validation.constraints.DecimalMin;
 import jakarta.validation.constraints.Digits;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
 @Entity
@@ -26,7 +27,10 @@ public class Produto {
 	@Size(min = 5, max = 100, message = "O nome do produto deve conter entre 05 e 100 caracteres")
 	private String nome;
 	
-    @DecimalMin(value = "0.01", message = "O preço deve ser maior que zero")
+	@NotNull
+	private String idade;
+
+	@DecimalMin(value = "0.01", message = "O preço deve ser maior que zero")
     @Digits(integer = 6, fraction = 2, message = "O preço deve ter no máximo 6 dígitos inteiros e 2 dígitos decimais")
 	private BigDecimal preco;
 	
@@ -35,6 +39,10 @@ public class Produto {
 	@ManyToOne
 	@JsonIgnoreProperties("produto") // fazer com que a categoria não chame o produto e fique num ciclo infinito de categoria:produto e produto:categoria
 	private Categoria categoria;
+	
+	@ManyToOne
+	@JsonIgnoreProperties("produto")
+	private Usuario usuario;
 
 	public Long getId() {
 		return id;
@@ -74,6 +82,14 @@ public class Produto {
 
 	public void setCategoria(Categoria categoria) {
 		this.categoria = categoria;
+	}
+	
+    public String getIdade() {
+		return idade;
+	}
+
+	public void setIdade(String idade) {
+		this.idade = idade;
 	}
 
 }
