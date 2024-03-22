@@ -105,4 +105,8 @@ public class UsuarioService {
 		return "Bearer " + jwtService.generateToken(usuario);
 	}
 
+    public String renovarToken(String userName) {
+        return "Bearer " + jwtService.generateToken(userName);
+    }
+
 }
